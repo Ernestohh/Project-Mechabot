@@ -5,10 +5,14 @@ public class Player : MonoBehaviour
 {
 
     /*
-    Version: 0.1
-    Changlog: added Movement, Dash, Jump
+    Version: 0.3
+    Changlog: added Movement, Dash, Jump, Animations, Health, Damage
     Ernesto
     */
+
+    public float maxHealth;
+    public float health;
+    public float damage;
     public float maxSpeed;
     public float speed;
     public float jumpPower;
@@ -26,13 +30,18 @@ public class Player : MonoBehaviour
     {
         rb2d = gameObject.GetComponent<Rigidbody2D>();
         anim = gameObject.GetComponent<Animator>();
-       
+        health = maxHealth;
     }
 
 
     void Update()
     {
         Move();
+        //Death Test
+        //if (Input.anyKeyDown)
+        //{
+        //    health -= 10;
+        //}
     }
 
     void Move()
