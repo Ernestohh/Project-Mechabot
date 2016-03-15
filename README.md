@@ -7,15 +7,15 @@ Post hier welke scripts je hebt toegevoegd in de Scripts map.
 
 # Updates
 
-Post hier wat je hebt geupdate aan de code. Gebruik volgende template. Op deze manier weten we wat er veranderd is aan welk script en wie het heeft veranderd.
+Schrijf in de code die je schrijft of veranderd het volgende template. Op deze manier weten we wat er veranderd is aan welk script en wie het heeft veranderd.
 
-Example:
+Template voorbeeld:
 
-Scripts: Example
-
-Veranderingen: Exmple veranderd naar Example.
-
-Persoon: Ernesto
+    /*
+    Version: 0.1
+    Changlog: added Movement, Dash, Jump
+    Ernesto
+    */
 
 
 
