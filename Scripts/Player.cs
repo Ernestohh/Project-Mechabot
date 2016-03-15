@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Player : MonoBehaviour
 {
+
     /*
     Version: 0.1
     Changlog: added Movement, Dash, Jump
@@ -18,11 +19,13 @@ public class Player : MonoBehaviour
     public bool dashReloadB;
     public bool grounded;
 
+    private Animator anim;
     private Rigidbody2D rb2d;
 
     void Start()
     {
         rb2d = gameObject.GetComponent<Rigidbody2D>();
+        anim = gameObject.GetComponent<Animator>();
        
     }
 
@@ -34,6 +37,8 @@ public class Player : MonoBehaviour
 
     void Move()
     {
+        //walking animation
+        anim.SetFloat("isWalking", Mathf.Abs(Input.GetAxis("Horizontal")));
         //dash
         if (Input.GetAxis("Horizontal") < -0.1f && Input.GetKey(KeyCode.LeftShift) && isDashing == false && dashReloadB == false)
         {
