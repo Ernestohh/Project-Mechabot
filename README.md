@@ -1,10 +1,11 @@
-# Project-Mechabot
+# Script list
+
+Post hier welke scripts je hebt toegevoegd in de Scripts map.
+
+- Player.cs
 
 
-Laten we hierin de story en samenvatting van de game plaatsen.
-
-
-# Update List
+# Updates
 
 Post hier wat je hebt geupdate aan de code. Gebruik volgende template. Op deze manier weten we wat er veranderd is aan welk script en wie het heeft veranderd.
 
@@ -15,4 +16,6 @@ Scripts: Example
 Veranderingen: Exmple veranderd naar Example.
 
 Persoon: Ernesto
+
+
 
