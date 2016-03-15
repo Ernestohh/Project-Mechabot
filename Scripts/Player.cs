@@ -3,8 +3,11 @@ using System.Collections;
 
 public class Player : MonoBehaviour
 {
-
-
+    /*
+    Version: 0.1
+    Changlog: added Movement, Dash, Jump
+    Ernesto
+    */
     public float maxSpeed;
     public float speed;
     public float jumpPower;
