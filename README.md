@@ -12,6 +12,10 @@ anders is dan andere versions.
 Example:
 
 Update version: 0.1
+
 Scripts: Example
+
 Veranderingen: Exmple veranderd naar Example.
+
 Persoon: Ernesto
+
