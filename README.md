@@ -4,6 +4,7 @@ Post hier welke scripts je hebt toegevoegd in de Scripts map.
 
 - Player.cs
 - Loader.cs
+- AI.cs
 
 # Updates
 
