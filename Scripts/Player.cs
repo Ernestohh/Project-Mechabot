@@ -5,14 +5,15 @@ public class Player : MonoBehaviour
 {
 
     /*
-    Version: 0.4
-    Changlog: Gestructureerder en betere dash met dashregen
+    Version: 0.5
+    Changlog: betere collision voor jumps
     Ernesto
     */
 
     public float maxHealth = 100f;
     public float maxSpeed = 3f;
     public float jumpPower = 300f;
+    public float airJumpPower = 20f;
     public float dashPower = 1600f;
     public float damage; //N/A
 
@@ -104,11 +105,12 @@ public class Player : MonoBehaviour
                 dashReloadB = false;
             }
         }
-        if (Input.GetKeyDown(KeyCode.Space) && grounded)
-        {
-            rb2d.AddForce(Vector2.up * jumpPower);
-            grounded = false;
-        }
+        //vervangen in FixedUpdate
+        //if (Input.GetKeyDown(KeyCode.Space) && grounded)
+        //{
+        //    rb2d.AddForce(Vector2.up * jumpPower);
+        //    grounded = false;
+        //}
         
     }
 
@@ -152,12 +154,18 @@ public class Player : MonoBehaviour
         {
             rb2d.velocity = new Vector2(-maxSpeed, rb2d.velocity.y);
         }
-
+        if (Input.GetAxis("Jump") >= 1 && grounded)
+        {
+            rb2d.AddForce(Vector2.up * jumpPower);
+            grounded = false;
+        }
     }
 
-    void OnTriggerStay2D()
+    void OnCollisionStay2D(Collision2D coll)
     {
-        grounded = true;
+        if(coll.gameObject.tag == "Ground") { 
+            grounded = true;
+        }
     }
 
 }
