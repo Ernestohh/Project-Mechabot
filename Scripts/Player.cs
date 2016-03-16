@@ -5,19 +5,21 @@ public class Player : MonoBehaviour
 {
 
     /*
-    Version: 0.3
-    Changlog: added Movement, Dash, Jump, Animations, Health, Damage
+    Version: 0.4
+    Changlog: Gestructureerder en betere dash met dashregen
     Ernesto
     */
 
-    public float maxHealth;
+    public float maxHealth = 100f;
+    public float maxSpeed = 3f;
+    public float jumpPower = 300f;
+    public float dashPower = 1600f;
+    public float damage; //N/A
+
     public float health;
-    public float damage;
-    public float maxSpeed;
-    public float speed;
-    public float jumpPower;
-    public float dashPower;
-    public float dashReload;
+    private float speed = 50;
+    private float dashRes = 100;
+    private float dashReload = 3f;
 
     public bool isDashing;
     public bool dashReloadB;
@@ -31,55 +33,87 @@ public class Player : MonoBehaviour
         rb2d = gameObject.GetComponent<Rigidbody2D>();
         anim = gameObject.GetComponent<Animator>();
         health = maxHealth;
+        StartCoroutine(DashRegen());
     }
 
 
     void Update()
     {
+        Anims();
         Move();
+        Rotate();
         //Death Test
         //if (Input.anyKeyDown)
         //{
         //    health -= 10;
         //}
     }
-
-    void Move()
+    void Anims()
     {
         //walking animation
         anim.SetFloat("isWalking", Mathf.Abs(Input.GetAxis("Horizontal")));
+    }
+
+    IEnumerator DashRegen()
+    {
+            while (true)
+            {
+            if (dashRes < 100)
+            {
+                dashRes += 1;
+                yield return new WaitForSeconds(1);
+            } else {
+                yield return null;
+            }
+        }
+    }
+
+    void Move()
+    {
         //dash
-        if (Input.GetAxis("Horizontal") < -0.1f && Input.GetKey(KeyCode.LeftShift) && isDashing == false && dashReloadB == false)
+        if (Input.GetAxis("Horizontal") < -0.1f && Input.GetKey(KeyCode.LeftShift) && isDashing == false && dashReloadB == false && dashRes > 10)
         {
             //indien je dasht addforce naar links met dashPower, isDashing wordt true (puur voor maxSpeed tijdelijk uit te zetten) dashReload is de cooldown
             rb2d.AddForce(Vector2.left * dashPower);
             isDashing = true;
             dashReloadB = true;
+            dashRes -= 10;
+
         }
         //dash
-        if (Input.GetAxis("Horizontal") > 0.1f && Input.GetKey(KeyCode.LeftShift) && isDashing == false && dashReloadB == false)
+        if (Input.GetAxis("Horizontal") > 0.1f && Input.GetKey(KeyCode.LeftShift) && isDashing == false && dashReloadB == false && dashRes > 10)
         {
             //indien je dasht addforce naar links met dashPower, isDashing wordt true (puur voor maxSpeed tijdelijk uit te zetten) dashReload is de cooldown
             rb2d.AddForce(Vector2.right * dashPower);
             isDashing = true;
             dashReloadB = true;
+            dashRes -= 10;
         }
         //cooldown voor de dash
         if (dashReloadB)
         {
             dashReload -= Time.deltaTime;
-            if(dashReload <= 4.8f)
+            if(dashReload <= 1.8f)
             {
                 isDashing = false;
             }
             if(dashReload <= 0)
             {
                 //reset cooldown dash
-                dashReload = 5f;
+                dashReload = 2f;
                 dashReloadB = false;
             }
         }
+        if (Input.GetKeyDown(KeyCode.Space) && grounded)
+        {
+            rb2d.AddForce(Vector2.up * jumpPower);
+            grounded = false;
+        }
+        
+    }
 
+    void Rotate()
+    {
         //roteren van de sprite aan de hand van links/rechts
         if (Input.GetAxis("Horizontal") < -0.1f)
         {
@@ -89,12 +123,6 @@ public class Player : MonoBehaviour
         if (Input.GetAxis("Horizontal") > 0.1f)
         {
             transform.localScale = new Vector3(1, 1, 1);
-        }
-        //jump
-        if (Input.GetKeyDown(KeyCode.Space) && grounded)
-        {
-            rb2d.AddForce(Vector2.up * jumpPower);
-            grounded = false;
         }
     }
 
