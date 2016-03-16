@@ -1,0 +1,46 @@
+using UnityEngine;
+using System.Collections;
+
+public class EnemyAI : MonoBehaviour {
+
+/* Version 0.1
+  AI movement to player, damage to player, dash away
+  Kevin
+  PS: Dit is nog niet getest aangezien ik geen sprites heb om da te testen
+*/
+  
+	private GameObject Player;
+	private int Range;
+	public int Speed;
+	private Rigidbody2D enemyrb2d;
+	public int dashAwayForce;
+
+	void Start () {
+		Player = GameObject.FindGameObjectWithTag ("Player");
+		enemyrb2d = gameObject.GetComponent<Rigidbody2D>();
+	}
+		
+	void FixedUpdate () 
+	{
+		Movement ();	
+	}
+
+	void Movement()
+	{
+		Range = Vector2.Distance (transform.position, Player.transform.position);
+		if (Range <= 15f) 
+		{
+			transform.Translate(Vector2.MoveTowards (transform.position, Player.transform.position, Range) * Speed * Time.deltaTime);
+		}
+	}
+		
+	void OnCollisionEnter2D (Collision2D Playerhit)
+	{
+		if (Playerhit.gameObject.tag == "Player") 
+		{
+			Player.gameObject.GetComponent<Player> ().health -= 1;
+			enemyrb2d.AddForce(Vector2.right * dashAwayForce);
+
+		}
+	}
+}
