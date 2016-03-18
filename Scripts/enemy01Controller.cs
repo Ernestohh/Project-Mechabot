@@ -83,6 +83,7 @@ public class enemy01Controller : MonoBehaviour {
         {
             playerCollisionCheck = true;
             //roep public void player op om damage te doen
+            Player.gameObject.GetComponent<Player> ().health -= 1; // moet ik nu iets veranderen aan die versie? Heb deze regel erbij gevoegd. Kevin
             Debug.Log("Player verliest health");
         }
     }
